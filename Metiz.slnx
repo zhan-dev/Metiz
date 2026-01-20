@@ -1,0 +1,10 @@
+<Solution>
+  <Project Path="BusinessLayer/BusinessLayer.csproj">
+    <BuildDependency Project="CoreLayer/CoreLayer.csproj" />
+  </Project>
+  <Project Path="CoreLayer/CoreLayer.csproj" />
+  <Project Path="Metiz.Tests/Metiz.Tests.csproj">
+    <BuildDependency Project="BusinessLayer/BusinessLayer.csproj" />
+    <BuildDependency Project="CoreLayer/CoreLayer.csproj" />
+  </Project>
+</Solution>
