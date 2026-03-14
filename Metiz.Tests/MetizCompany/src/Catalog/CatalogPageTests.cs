@@ -3,6 +3,8 @@
 namespace Metiz.Tests.MetizCompany.src.Catalog
 {
     [TestFixture]
+    [Parallelizable(ParallelScope.All)]
+    [FixtureLifeCycle(LifeCycle.InstancePerTestCase)]
     internal class CatalogPageTests : BaseSetup
     {
         private CatalogPage page;

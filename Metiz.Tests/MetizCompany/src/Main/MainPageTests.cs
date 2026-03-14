@@ -3,6 +3,8 @@
 namespace Metiz.Tests.MetizCompany.src.Main
 {
     [TestFixture]
+    [Parallelizable(ParallelScope.All)]
+    [FixtureLifeCycle(LifeCycle.InstancePerTestCase)]
     internal class MainPageTests : BaseSetup
     {
         private MainPage page;
