@@ -1,8 +1,8 @@
-﻿namespace BusinessLayer.Enums
+﻿namespace CoreLayer.Enums
 {
     internal enum WebBrowserMode
     {
-        UseUXUI,
-        Silent
+        UXUI,
+        Silent,
     }
 }

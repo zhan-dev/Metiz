@@ -6,18 +6,18 @@ namespace CoreLayer.WebDriver.WebDriverWrapper
     {
         private readonly IWebDriver _driver;
         private readonly TimeSpan _timeout;
-        private const int ImplicitWaitTimeInSeconds = 10;
-        private const int ExplicitWaitTimeInSeconds = 10;
+        private const int defaultLocalWaitTimeSeconds = 10;
+        private const int defaultGlobalWaitTimeSeconds = 0;
 
-        public WebDriverWrapper(IWebDriver driver)
+        public WebDriverWrapper(IWebDriver driver, int localWaitTimeSeconds = defaultLocalWaitTimeSeconds)
         {
             this._driver = driver;
-            this._timeout = TimeSpan.FromSeconds(ExplicitWaitTimeInSeconds);
+            this._timeout = TimeSpan.FromSeconds(localWaitTimeSeconds);
         }
 
-        public void ImplicitWaitTime(int implicitWaitTime = ImplicitWaitTimeInSeconds)
+        public void SetGlobalWaitTime(int globalWaitTimeSeconds = defaultGlobalWaitTimeSeconds)
         {
-            _driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(implicitWaitTime);
+            _driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(globalWaitTimeSeconds);
         }
 
         public void GoToUrl(string url)

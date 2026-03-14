@@ -1,4 +1,4 @@
-﻿using BusinessLayer.Enums;
+﻿using CoreLayer.Enums;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 

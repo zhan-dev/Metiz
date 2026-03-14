@@ -1,10 +1,10 @@
-﻿using BusinessLayer.Enums;
+﻿using CoreLayer.Enums;
 using OpenQA.Selenium;
 
 namespace CoreLayer.WebDriver
 {
     internal interface IWebDriverFactory
     {
-        IWebDriver CreateDriver(WebBrowserMode mode);
+        public IWebDriver CreateDriver(WebBrowserMode mode);
     }
 }

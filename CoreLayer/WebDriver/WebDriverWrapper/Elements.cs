@@ -6,38 +6,47 @@ namespace CoreLayer.WebDriver.WebDriverWrapper
 {
     internal partial class WebDriverWrapper
     {
-        public void Click(By by)
+        public void Click(By by, int waitTime = defaultLocalWaitTimeSeconds)
         {
-            WaitForElementToBePresent(_driver, by, _timeout).Click();
+            WaitForElementToBePresent(this._driver, by, this.Timeout(waitTime)).Click();
         }
 
-        public void EnterText(By by, string text)
+        public void EnterText(By by, string text, int waitTime = defaultLocalWaitTimeSeconds)
         {
-            var element = WaitForElementToBePresent(_driver, by, _timeout);
+            var element = WaitForElementToBePresent(this._driver, by, Timeout(waitTime));
             element.Clear();
             element.SendKeys(text);
         }
-        public IWebElement FindElement(By by)
+
+        public void ClearText(By by, int waitTime = defaultLocalWaitTimeSeconds)
         {
-            var elementPresent = WaitForElementToBePresent(_driver, by, _timeout);
+            var element = WaitForElementToBePresent(this._driver, by, Timeout(waitTime));
+            element.Click();
+            element.SendKeys(Keys.Control + "a");
+            element.SendKeys(Keys.Delete);
+        }
+
+        public IWebElement FindElement(By by, int waitTime = defaultLocalWaitTimeSeconds)
+        {
+            var elementPresent = WaitForElementToBePresent(this._driver, by, Timeout(waitTime));
             return elementPresent.FindElement(by);
         }
 
-        public IReadOnlyCollection<IWebElement> FindElements(By by)
+        public IReadOnlyCollection<IWebElement> FindElements(By by, int waitTime = defaultLocalWaitTimeSeconds)
         {
-            var elementsPresent = WaitForElementToBePresent(_driver, by, _timeout);
+            var elementsPresent = WaitForElementToBePresent(this._driver, by, Timeout(waitTime));
             return elementsPresent.FindElements(by);
         }
 
-        public IWebElement FindChildByName(By byParent, string childName)
+        public IWebElement FindChildByName(By byParent, string childName, int waitTime = defaultLocalWaitTimeSeconds)
         {
-            var elementParent = WaitForElementToBePresent(_driver, byParent, _timeout);
+            var elementParent = WaitForElementToBePresent(this._driver, byParent, Timeout(waitTime));
             return elementParent.FindElement(By.Name(childName));
         }
 
         public void ClickAndSendAction(IWebElement element, string textToSend)
         {
-            var clickAndSendKeysActions = new Actions(_driver);
+            var clickAndSendKeysActions = new Actions(this._driver);
             clickAndSendKeysActions.Click(element)
                 .Pause(TimeSpan.FromSeconds(1))
                 .SendKeys(textToSend)
@@ -66,6 +75,11 @@ namespace CoreLayer.WebDriver.WebDriverWrapper
 
                 return null;
             });
+        }
+
+        private TimeSpan Timeout(int waitTime)
+        {
+            return waitTime is 0 ? this._timeout : TimeSpan.FromSeconds(waitTime);
         }
     }
 }
